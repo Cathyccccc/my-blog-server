@@ -3,7 +3,8 @@ const router = express.Router();
 const projectService = require('../service/project');
 
 router.get('/', async (req, res) => {
-  const data = await projectService.getProjects();
+  const {filterKey} = req.query;
+  const data = await projectService.getProjects(filterKey);
   res.send({
     code: 0,
     success: true,

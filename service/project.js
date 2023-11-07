@@ -1,9 +1,15 @@
 const connection = require('./dbConnect');
 const { v4: uuidv4 } = require('uuid');
 
-module.exports.getProjects = function() {
+module.exports.getProjects = function(filterKey) {
+  let queryStr;
+  if (filterKey) {
+    queryStr = `select *, DATE_FORMAT(finish_date, "%Y-%m-%d") as finish_date from projects where project_name LIKE '%${filterKey}%'`;
+  } else {
+    queryStr = 'select *, DATE_FORMAT(finish_date, "%Y-%m-%d") as finish_date from projects';
+  }
   return new Promise((resolve, reject) => {
-    connection.query('select *, DATE_FORMAT(finish_date, "%Y-%m-%d") as finish_date from projects', (error, results, fields) => {
+    connection.query(queryStr, (error, results, fields) => {
       if (error) reject(error);
       resolve(results);
     })

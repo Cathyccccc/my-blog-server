@@ -36,7 +36,7 @@ module.exports.addComment = function (articleId, commentId, comment, replyArr) {
     replyArr = JSON.parse(replyArr);
     // if (replyArr.length) {
       replyArr.push(comment);
-      console.log(replyArr)
+      // console.log(replyArr)
       replyArr = JSON.stringify(replyArr);
       return new Promise((resolve, reject) => {
         connection.query(`update articles set comments = JSON_SET(comments,

@@ -29,11 +29,36 @@ app.get('/', (req, res) => {
   res.send('hello world')
 })
 
+app.post('/logon', (req, res) => {
+  const {loginId, loginPwd} = req.body;
+  if (loginId === 'star' && loginPwd === '123123a') {
+    res.send({
+      code: 0,
+      success: true,
+      data: {
+        msg: '登录成功'
+      }
+    })
+  } else {
+    res.send({
+      code: 0,
+      success: false,
+      data: {
+        msg: '账户不存在'
+      }
+    })
+  }
+})
+
 app.use('/article', articleRouter)
 app.use('/tag', tagRouter);
 app.use('/project', projectRouter);
 app.use('/upload', uploadRouter);
 app.use('/comment', commentRouter);
+
+app.use((err, req, res, next) => {
+  res.status(500).json({ message: err.message })
+})
 
 app.listen(port, () => {
   console.log('server is listening on 3000 port')
