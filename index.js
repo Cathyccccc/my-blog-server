@@ -21,13 +21,13 @@ app.use('/', (req, res, next) => {
   next();
 })
 app.use('/static', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }))
+app.use(bodyParser.json({ limit: '100mb' }))
 // app.use(bodyParser.raw({ type: 'multipart/form-data' })) // 解析二进制数据，如上传的图片
 
-app.get('/', (req, res) => {
-  res.send('hello world')
-})
+// app.get('/', (req, res) => {
+//   res.send('hello world')
+// })
 
 app.post('/logon', (req, res) => {
   const {loginId, loginPwd} = req.body;
