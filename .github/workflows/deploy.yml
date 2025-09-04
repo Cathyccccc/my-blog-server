@@ -22,15 +22,15 @@ jobs:
       run: |
         npm ci --only=production
 
-    - name: deploy
-      uses: nogsantos/scp-deploy@master
+    - name: Copy files via SSH
+      uses: appleboy/scp-action@v1
       with:
-          src: ./
-          remote: /var/local/my-blog/server/
-          host: ${{ secrets.SSH_HOST }}
-          port: 22
-          user: root
-          key: ${{ secrets.SSH_KEY }}
+        host: ${{ secrets.HOST }}
+        username: root
+        password: ${{ secrets.SSH_KEY }}
+        port: 22
+        source: "./middleware,./route,./service,./utils,./index.js,./package.json"
+        target: /var/local/my-blog/server/
 
     - name: manage backend with pm2
       run: |
