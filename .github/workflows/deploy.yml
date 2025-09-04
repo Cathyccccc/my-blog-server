@@ -25,7 +25,7 @@ jobs:
     - name: Copy files via SSH
       uses: appleboy/scp-action@v1
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.SSH_HOST }}
         username: root
         key: ${{ secrets.SSH_KEY }}
         port: 22
@@ -35,3 +35,4 @@ jobs:
     - name: manage backend with pm2
       run: |
         pm2 startOrReload myblog
+        pm2 save
