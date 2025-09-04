@@ -34,5 +34,6 @@ jobs:
 
     - name: manage backend with pm2
       run: |
+        npm install -g pm2
         pm2 startOrReload ecosystem.config.js
         pm2 save
