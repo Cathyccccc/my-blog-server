@@ -1,51 +1,75 @@
-const connection = require('./dbConnect');
-const { v4: uuidv4 } = require('uuid');
+const connection = require("./dbConnect");
+const { v4: uuidv4 } = require("uuid");
 
-module.exports.getProjects = function(filterKey) {
+module.exports.getProjects = function (filterKey) {
   let queryStr;
   if (filterKey) {
     queryStr = `select *, DATE_FORMAT(finish_date, "%Y-%m-%d") as finish_date from projects where project_name LIKE '%${filterKey}%'`;
   } else {
-    queryStr = 'select *, DATE_FORMAT(finish_date, "%Y-%m-%d") as finish_date from projects';
+    queryStr =
+      'select *, DATE_FORMAT(finish_date, "%Y-%m-%d") as finish_date from projects';
   }
   return new Promise((resolve, reject) => {
     connection.query(queryStr, (error, results, fields) => {
       if (error) reject(error);
       resolve(results);
-    })
-  })
-}
+    });
+  });
+};
 
-module.exports.addProject = function(project) {
-  const {project_name, cover, project_url, introduction, technology, finish_date} = project;
+module.exports.addProject = function (project) {
+  const {
+    project_name,
+    cover,
+    project_url,
+    introduction,
+    technology,
+    finish_date,
+  } = project;
   const id = uuidv4();
   return new Promise((resolve, reject) => {
-    connection.query(`insert into projects (id, project_name, cover, project_url, introduction, technology, finish_date)
+    connection.query(
+      `insert into projects (id, project_name, cover, project_url, introduction, technology, finish_date)
     values('${id}', '${project_name}', '${cover}', '${project_url}', '${introduction}', '${technology}', '${finish_date}')`,
-    (error, results, fields) => {
-      if (error) reject(error);
-      resolve();
-    })
-  })
-}
+      (error, results, fields) => {
+        if (error) reject(error);
+        resolve();
+      }
+    );
+  });
+};
 
-module.exports.deleteProject = function(id) {
+module.exports.deleteProject = function (id) {
   return new Promise((resolve, reject) => {
-    connection.query(`delete from projects where id = '${id}'`, (error, results, fields) => {
-      if (error) reject(error);
-      resolve();
-    })
-  })
-}
+    connection.query(
+      `delete from projects where id = '${id}'`,
+      (error, results, fields) => {
+        if (error) reject(error);
+        resolve();
+      }
+    );
+  });
+};
 
-module.exports.updateProject = function(project) {
-  const {id, project_name, cover, project_url, introduction, technology, finish_date} = project;
+module.exports.updateProject = function (project) {
+  const {
+    id,
+    project_name,
+    cover,
+    project_url,
+    introduction,
+    technology,
+    finish_date,
+  } = project;
   return new Promise((resolve, reject) => {
-    connection.query(`update projects set project_name = '${project_name}', cover = '${cover}', project_url = '${project_url}',
+    connection.query(
+      `update projects set project_name = '${project_name}', cover = '${cover}', project_url = '${project_url}',
     introduction = '${introduction}', technology = '${technology}', finish_date = '${finish_date}'
-    where id = '${id}'`, (error, results, fields) => {
-      if (error) reject(error);
-      resolve();
-    })
-  })
-}
+    where id = '${id}'`,
+      (error, results, fields) => {
+        if (error) reject(error);
+        resolve();
+      }
+    );
+  });
+};

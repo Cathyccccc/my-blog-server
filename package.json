@@ -6,16 +6,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon -e js --exec npm start"
+    "dev": "nodemon -e js --exec npm start",
+    "pm2": "pm2 startOrReload npm --name myblog -- start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.11.0",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
+    "fs-extra": "^11.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
     "multer": "^1.4.5-lts.1",
+    "multiparty": "^4.2.3",
     "mysql2": "^3.6.2",
     "nodemon": "^3.0.1",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "winston": "^3.17.0"
   }
 }
