@@ -27,7 +27,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: root
-        password: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_KEY }}
         port: 22
         source: "./middleware,./route,./service,./utils,./index.js,./package.json"
         target: /var/local/my-blog/server/
