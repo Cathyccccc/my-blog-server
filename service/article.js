@@ -28,7 +28,7 @@ module.exports.getPublishArticles = async function ({
   let query;
   if (filterKey) {
     query = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') as date, CAST(FROM_BASE64(content) AS CHAR CHARACTER SET utf8mb4) AS content from articles
-    where JSON_SEARCH(tag, 'one', '${filterKey}') or title LIKE '%${filterKey}%' WHERE isPublish = 1 ORDER BY date DESC lIMIT ${startIndex}, ${pageSize}`;
+    where isPublish = 1 and JSON_SEARCH(tag, 'one', '${filterKey}') or title LIKE '%${filterKey}%' ORDER BY date DESC lIMIT ${startIndex}, ${pageSize}`;
   } else {
     query = `select *, DATE_FORMAT(date, '%Y-%m-%d %H:%i:%s') as date, CAST(FROM_BASE64(content) AS CHAR CHARACTER SET utf8mb4) AS content from articles WHERE isPublish = 1 ORDER BY date DESC limit ${startIndex}, ${pageSize}`;
   }
