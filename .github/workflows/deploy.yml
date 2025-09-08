@@ -30,8 +30,6 @@ jobs:
         script: |
           cd /var/local/my-blog/server
           npm install
-
-    - name: manage backend with pm2
-      script: |
-        pm2 startOrReload ecosystem.config.js
-        pm2 save
+          pm2 startOrReload ecosystem.config.js
+          pm2 save
+        
