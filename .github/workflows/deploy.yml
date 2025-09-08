@@ -18,10 +18,6 @@ jobs:
       with:
         node-version: 16.18.0
 
-    - name: Install dependencies
-      run: |
-        npm install
-
     - name: Copy files via SSH
       uses: appleboy/scp-action@v1
       with:
@@ -29,8 +25,12 @@ jobs:
         username: root
         key: ${{ secrets.SSH_KEY }}
         port: 22
-        source: "./middleware,./route,./service,./utils,./index.js,./package.json"
+        source: "./middleware,./route,./service,./utils,./index.js,./package.json,"
         target: /var/local/my-blog/server/
+
+    - name: Install dependencies
+      run: |
+        npm install
 
     - name: manage backend with pm2
       run: |
