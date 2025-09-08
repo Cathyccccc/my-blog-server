@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: 16.18.0
 
-    - name: Copy files via SSH
+    - name: Copy files via SSH and install dependencies
       uses: appleboy/scp-action@v1
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -27,13 +27,11 @@ jobs:
         port: 22
         source: "./middleware,./route,./service,./utils,./index.js,./package.json,"
         target: /var/local/my-blog/server/
-
-    - name: Install dependencies
-      run: |
-        npm install
+        script: |
+          cd /var/local/my-blog/server
+          npm install
 
     - name: manage backend with pm2
-      run: |
-        npm install -g pm2
+      script: |
         pm2 startOrReload ecosystem.config.js
         pm2 save
