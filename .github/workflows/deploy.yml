@@ -27,12 +27,17 @@ jobs:
         port: 22
         source: "./middleware,./route,./service,./utils,./index.js,./package.json,"
         target: /var/local/my-blog/server/
-
-    - name: install dependencies and run
-      uses: appleboy/scp-action@v1
-      script: |
+      run: |
         cd /var/local/my-blog/server
         npm install
         pm2 startOrReload ecosystem.config.js
         pm2 save
+    # - name: install dependencies and run
+    #   uses: appleboy/scp-action@v1
+    #   host:
+    #     ${{ secrets.SSH_HOST }}
+    #     username: root
+    #     key: ${{ secrets.SSH_KEY }}
+    #     port: 22
+
         
