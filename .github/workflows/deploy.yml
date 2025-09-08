@@ -25,7 +25,7 @@ jobs:
         username: root
         key: ${{ secrets.SSH_KEY }}
         port: 22
-        source: "./middleware,./route,./service,./utils,./index.js,./package.json"
+        source: "./middleware,./route,./service,./utils,./index.js,./package.json,./ecosystem.config.js"
         target: /var/local/my-blog/server/
 
     - name: install dependencies and manage server with pm2
