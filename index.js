@@ -6,7 +6,6 @@ const winston = require("winston");
 const morgan = require("morgan");
 const fs = require("fs");
 const { generateToken, verifyToken } = require("./utils/token");
-const parseForm = require("./middleware/parseForm");
 const articleRouter = require("./route/articleRouter");
 const tagRouter = require("./route/tagRouter");
 const projectRouter = require("./route/projectRouter");
@@ -51,7 +50,6 @@ app.use("/", (req, res, next) => {
 app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true, limit: "100mb" }));
 app.use(bodyParser.json({ limit: "100mb" }));
-app.use(parseForm);
 // app.use(bodyParser.raw({ type: 'multipart/form-data' })) // 解析二进制数据，如上传的图片
 
 // app.get('/', (req, res) => {
